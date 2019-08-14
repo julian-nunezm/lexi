@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Translator</title>
+        <title>LEXI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -41,6 +41,9 @@ This crucial upgrade will address a known firmware bug that has caused hardware 
                         <input type="radio" name="common" id="10k" value="10000" checked>10k
                         <input type="radio" name="common" id="20k" value="20000">20k
                     </label>
+                    <p id="wordsTotal"></p>
+                    <p id="commonWordsTotal"></p>
+                    <p id="percentage"></p>
                 </div>
             </div>
             <div class="row">
@@ -48,13 +51,6 @@ This crucial upgrade will address a known firmware bug that has caused hardware 
                     <p id="translation"></p>
                 </div>
                 <div id="piechart" class="col-6"></div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <p id="wordsTotal"></p>
-                    <p id="commonWordsTotal"></p>
-                    <p id="percentage"></p>
-                </div>
             </div>
         </div>
     </body>
