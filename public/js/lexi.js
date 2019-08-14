@@ -7,6 +7,17 @@ const endSpanTag = "</span>";
 let wordsTotal = 0;
 let commonWordsTotal = 0;
 let amount = 0;
+//TODO: Check the use of different colors
+let oneK = plainWords.slice(0,1000);
+alert(oneK.length);
+let twoK = plainWords.slice(1000,2000);
+alert(twoK.length);
+let fiveK = plainWords.slice(2000,5000);
+alert(fiveK.length);
+let tenK = plainWords.slice(5000,10000);
+alert(tenK.length);
+let twentyK = plainWords.slice(20000);
+alert(twentyK.length);
 
 function checkText(){
     amount = checkAmount();
@@ -30,6 +41,7 @@ function checkAmount(){
             radioAmount = radio.value;
         }
     });
+    //document.getElementsByName("common").find((radio) => radio.checked == true).value;
     return radioAmount;
 }
 
@@ -59,12 +71,19 @@ function splitByWholeSentences(paragraph){
 
 function splitBySimpleSentences(wholeSentence){
     let simpleSentences = wholeSentence.split(",");
+    console.log(simpleSentences[0]);
+    console.log(typeof simpleSentences[0]);
+    //TODO: Como poner coma al final.
     let checkedWholeSentence = "";
     if(consoleOn) {console.log("    SS:");}
     simpleSentences.map(ss => {
-        if(consoleOn) {console.log("    "+ss);}
-        checkedSimpleSentence = splitByWords(ss);
-        checkedWholeSentence += checkedSimpleSentence + ", ";
+        if(ss != ""){
+            ss = ss.trim();
+            console.log("Simple sentence: "+ ss +" - Tipo: "+typeof ss);
+            if(consoleOn) {console.log("    "+ss);}
+            checkedSimpleSentence = splitByWords(ss);
+            checkedWholeSentence += checkedSimpleSentence + ", ";
+        }
     });
     return checkedWholeSentence;
 }
@@ -74,25 +93,26 @@ function splitByWords(simpleSentence){
     let checkedSimpleSentence = "";
     if(consoleOn) {console.log("      W:");}
     words.map(w => {
-        let isIn = plainWords.slice(0,amount).includes(w.toLowerCase());
-        wordsTotal += 1;
-        //TODO: Check if SpanTag can be modified or not because it's const, check if possible to reduce the number of lines
-        //TODO: Check the space at the end of a sentence.
-        if(!isIn){
-            checkedSimpleSentence += startSpanOutTag + w + endSpanTag + " ";
-            if(consoleOn) {console.log("      Out: "+w);}
-        } else {
-            //TODO: Check the totals
-            commonWordsTotal += 1;
-            if(w.match(new RegExp(/^[A-Z]/)) !== null){
-                if(consoleOn) {console.log(w.match(new RegExp(/^[A-Z]/)) !== null);}
-                checkedSimpleSentence += startSpanProperNounTag + w + endSpanTag + " ";
+        if(w != ""){
+            let isIn = plainWords.slice(0,amount).includes(w.toLowerCase());
+            wordsTotal += 1;
+            //TODO: Check if SpanTag can be modified or not because it's const, check if possible to reduce the number of lines
+            //TODO: Check the space at the end of a sentence.
+            if(!isIn){
+                checkedSimpleSentence += startSpanOutTag + w + endSpanTag + " ";
+                if(consoleOn) {console.log("      Out: "+w);}
             } else {
-                checkedSimpleSentence += w  + " ";
-                if(consoleOn) {console.log("      "+w);}
+                //TODO: Check the totals
+                commonWordsTotal += 1;
+                /*if(w.match(new RegExp(/^[A-Z]/)) !== null){
+                    if(consoleOn) {console.log(w.match(new RegExp(/^[A-Z]/)) !== null);}
+                    checkedSimpleSentence += startSpanProperNounTag + w + endSpanTag + " ";
+                } else {*/
+                    checkedSimpleSentence += w  + " ";
+                    if(consoleOn) {console.log("      "+w);}
+                //}
             }
         }
-        return checkedSimpleSentence;
     });
     return checkedSimpleSentence;
 }
