@@ -1,0 +1,10 @@
+/*body {text-align: -webkit-center}*/
+            /*div {
+                text-align: center;
+                width: 60%;
+            }*/
+            div.result{/*border-style: dotted; */font-size: 14px}
+            /*span.in {background-color: green}*/
+            span.out {background-color: red}
+            span.proper {background-color: yellow}
+            #piechart {width: auto; height: auto}
