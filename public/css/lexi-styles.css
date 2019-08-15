@@ -1,28 +1,32 @@
-div.result {
-    font-size: 14px
+div.result { font-size: 14px }
+
+span, .span {
+    padding: 2px;
+    border: 0px
+    /*margin: 5px 0px 5px 0px;*/
 }
 
-span.out {
-    background-color: red
-}
+#checkedMessage { line-height: 26px }
 
-span.oneK {
-    background-color: blue
-}
+span.out { background-color: red }
 
-span.proper {
-    background-color: yellow
-}
+.oneK { background-color: greenyellow }
+
+.twoK { background-color: cadetblue }
+
+.fiveK { background-color: burlywood }
+
+.tenK { background-color: cyan }
+
+.twentyK { background-color: darkmagenta }
+
+span.proper { background-color: yellow }
 
 #piechart {
     /*width: 100%;*/
     height: 400px
 }
 
-.well-done {
-    color: green;
-}
+.well-done { color: green }
 
-.double-check {
-    color: red;
-}
+.double-check { color: red }
