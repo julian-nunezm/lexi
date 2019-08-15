@@ -1,34 +1,28 @@
 const consoleOn = false;
 const startParagraphTag = "<p>";
 const endParagraphTag = "</p>";
-const startSpanOutTag = "<span class=\"out\">";
-const startSpanOneKTag = "<span class=\"oneK\">";
-const startSpanProperNounTag = "<span class=\"proper\">";
+let startSpanTag = "";
 const endSpanTag = "</span>";
 let notCommonWordsCounter = 0;
 let commonWordsCounter = 0;
-let amount = 0;
+let isIn = true;
+let whereIs = "";
 let commonWords = [];
-//TODO: Check the use of different colors
-let oneK = plainWords.slice(0,1000);
-//alert(oneK.length);
-let twoK = plainWords.slice(1000,2000);
-//alert(twoK.length);
-let fiveK = plainWords.slice(2000,5000);
-//alert(fiveK.length);
-let tenK = plainWords.slice(5000,10000);
-//alert(tenK.length);
-let twentyK = plainWords.slice(10000);
-//alert(twentyK.length);
 
 function checkText(){
-    amount = checkAmount();
-    commonWords = plainWords.slice(0,amount);
+    //Initialize values
+    commonWords = plainWords.slice(0, Array.prototype.slice.call(document.getElementsByName("common")).find((radio) => radio.checked == true).value);
+    
+    //Get the text to analyze
     let textToCheck = document.getElementById("toTranslate").value;
     if(consoleOn) {console.clear();}
     if(consoleOn) {console.log(textToCheck);}
+    
+    //Split the initial check to chunks by paragraphs to analize them separately.
     checkedMessage = splitByParagraphs(textToCheck);
-    document.getElementById("translation").innerHTML = checkedMessage;
+    
+    //Print results
+    document.getElementById("checkedMessage").innerHTML = checkedMessage;
     document.getElementById("commonWords").innerHTML = "Total of simple words: " + commonWordsCounter;
     document.getElementById("notCommonWords").innerHTML = "Total of not simple words: " + notCommonWordsCounter;
     document.getElementById("words").innerHTML = "Total of words: " + (commonWordsCounter + notCommonWordsCounter);
@@ -38,20 +32,13 @@ function checkText(){
     else
         document.getElementById("message").innerHTML = "<span class=\"double-check\">You should double check your message.</span>";
     document.getElementById("percentage").innerHTML = "The " + percentageCommonWords.toFixed(2) + "% of the words are common.";
+    
+    //Draw Pie Chart
     drawPieChart(commonWordsCounter, notCommonWordsCounter);
-    commonWordsCounter = 0;
-    notCommonWordsCounter = 0;  
-}
 
-function checkAmount(){
-    let radioAmount = 0;
-    document.getElementsByName("common").forEach(radio => {
-        if (radio.checked) {
-            radioAmount = radio.value;
-        }
-    });
-    //document.getElementsByName("common").find((radio) => radio.checked == true).value;
-    return radioAmount;
+    //Restart counters
+    commonWordsCounter = 0;
+    notCommonWordsCounter = 0;
 }
 
 function splitByParagraphs(text){
@@ -100,32 +87,35 @@ function splitBySimpleSentences(wholeSentence){
 function splitByWords(simpleSentence){
     let words = simpleSentence.split(" ");
     let checkedSimpleSentence = "";
-    let isIn = true;
     if(consoleOn) {console.log("      W:");}
     words.map(w => {
         if(w != ""){
             isIn = commonWords.includes(w.toLowerCase());
-            //isIn = lookForWord("1k");
+            whereIs = lookForWord(w);   //2 - 
             //TODO: Check if SpanTag can be modified or not because it's const, check if possible to reduce the number of lines
             //TODO: Check the space at the end of a sentence.
-            if(!isIn){
-                checkedSimpleSentence += startSpanOutTag + w + endSpanTag + " ";
-                notCommonWordsCounter += 1;
-                if(consoleOn) {console.log("      Out: "+w);}
-            } else {
-                //TODO: Check the totals
-                commonWordsCounter += 1;
-                /*if(w.match(new RegExp(/^[A-Z]/)) !== null){
-                    if(consoleOn) {console.log(w.match(new RegExp(/^[A-Z]/)) !== null);}
-                    checkedSimpleSentence += startSpanProperNounTag + w + endSpanTag + " ";
-                } else {*/
-                    checkedSimpleSentence += w  + " ";
-                    if(consoleOn) {console.log("      "+w);}
-                //}
-            }
+            if(isIn) commonWordsCounter += 1;
+            else notCommonWordsCounter += 1;   //if(w.match(new RegExp(/^[A-Z]/)) !== null)
+            startSpanTag = "<span class=\"" + whereIs + "\">";
+            checkedSimpleSentence += startSpanTag + w + endSpanTag + " ";    //TODO: Check the space at the end
         }
     });
     return checkedSimpleSentence;
+}
+
+function lookForWord(word){ //2 - 
+    //TODO: Improve if possible, use the previous slices, in checkText function!!
+    let within = plainWords.slice(10000).includes(word.toLowerCase());
+    if (within) return "twentyK";
+    within = plainWords.slice(5000,10000).includes(word.toLowerCase());
+    if (within) return "tenK";
+    within = plainWords.slice(2000, 5000).includes(word.toLowerCase());
+    if (within) return "fiveK";
+    within = plainWords.slice(1000, 2000).includes(word.toLowerCase());
+    if (within) return "twoK";
+    within = plainWords.slice(0, 1000).includes(word.toLowerCase());
+    if (within) return "oneK";
+    return "out";
 }
 
 function drawPieChart(common, notCommon){
