@@ -29,21 +29,21 @@
                     <!--textarea name="input" id="toTranslate" cols="70" rows="5">This is a notification to advise that the Burwood Core switch upgrade has commenced. You will receive another update upon completion on the change.
 
 This crucial upgrade will address a known firmware bug that has caused hardware failure, resulting in the three major incidents that occurred at the end of last year.</textarea-->
-                    <textarea name="input" id="toTranslate" cols="70" rows="5">First sentence, and second sentence.</textarea>
-                    <!--textarea name="input" id="toTranslate" cols="70" rows="5">Due to an expedited change required for our new Digital Workplace solution you will experience an outage to the following applications if you attempt to login in to the affected applications after 5 pm tonight.
+                    <!--textarea name="input" id="toTranslate" cols="70" rows="5">First sentence, and second sentence.</textarea-->
+                    <textarea name="input" id="toTranslate" cols="70" rows="5">Due to an expedited change required for our new Digital Workplace solution you will experience an outage to the following applications if you attempt to login in to the affected applications after 5 pm tonight.
  
-                            All staff who have logged on to their computers in the office before 5 pm today and who do not restart their machine after 5 pm for any reason will continue to be able to work past 5 pm today on the below applications</textarea-->
+All staff who have logged on to their computers in the office before 5 pm today and who do not restart their machine after 5 pm for any reason will continue to be able to work past 5 pm today on the below applications</textarea>
                     <p></p>
                 </div>
                 <div class="col-6">
                     <button type="submit" onclick="checkText();">Check!</button>
                     <p></p>
                     <label id="amounts">
-                        <input type="radio" name="common" id="1k" value="1000" >1k
-                        <input type="radio" name="common" id="2k" value="2000" >2k
-                        <input type="radio" name="common" id="5k" value="5000">5k
-                        <input type="radio" name="common" id="10k" value="10000" checked>10k
-                        <input type="radio" name="common" id="20k" value="20000">20k
+                        <input type="radio" name="common" id="1k" value="1000"><label class="oneK span">1k</label>
+                        <input type="radio" name="common" id="2k" value="2000"><label class="twoK span">2k</label>
+                        <input type="radio" name="common" id="5k" value="5000"><label class="fiveK span">5k</label>
+                        <input type="radio" name="common" id="10k" value="10000" checked><label class="tenK span">10k</label>
+                        <input type="radio" name="common" id="20k" value="20000" ><label class="twentyK span">20k</label>
                     </label>
                     <p id="commonWords"></p>
                     <p id="notCommonWords"></p>
@@ -53,9 +53,7 @@ This crucial upgrade will address a known firmware bug that has caused hardware 
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 result">
-                    <p id="translation"></p>
-                </div>
+                <div id="checkedMessage" class="col-6 result"></div>
                 <div id="piechart" class="col-6"></div>
             </div>
         </div>
