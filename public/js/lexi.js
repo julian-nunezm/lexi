@@ -2,36 +2,45 @@ const consoleOn = false;
 const startParagraphTag = "<p>";
 const endParagraphTag = "</p>";
 const startSpanOutTag = "<span class=\"out\">";
+const startSpanOneKTag = "<span class=\"oneK\">";
 const startSpanProperNounTag = "<span class=\"proper\">";
 const endSpanTag = "</span>";
-let wordsTotal = 0;
-let commonWordsTotal = 0;
+let notCommonWordsCounter = 0;
+let commonWordsCounter = 0;
 let amount = 0;
+let commonWords = [];
 //TODO: Check the use of different colors
 let oneK = plainWords.slice(0,1000);
-alert(oneK.length);
+//alert(oneK.length);
 let twoK = plainWords.slice(1000,2000);
-alert(twoK.length);
+//alert(twoK.length);
 let fiveK = plainWords.slice(2000,5000);
-alert(fiveK.length);
+//alert(fiveK.length);
 let tenK = plainWords.slice(5000,10000);
-alert(tenK.length);
-let twentyK = plainWords.slice(20000);
-alert(twentyK.length);
+//alert(tenK.length);
+let twentyK = plainWords.slice(10000);
+//alert(twentyK.length);
 
 function checkText(){
     amount = checkAmount();
+    commonWords = plainWords.slice(0,amount);
     let textToCheck = document.getElementById("toTranslate").value;
     if(consoleOn) {console.clear();}
     if(consoleOn) {console.log(textToCheck);}
     checkedMessage = splitByParagraphs(textToCheck);
     document.getElementById("translation").innerHTML = checkedMessage;
-    document.getElementById("wordsTotal").innerHTML = "Total of words: " + wordsTotal;
-    document.getElementById("commonWordsTotal").innerHTML = "Total of common words: " + commonWordsTotal;
-    document.getElementById("percentage").innerHTML = "The " + ((commonWordsTotal/wordsTotal)*100).toFixed(2) + "% of the words are common.";
-    drawPieChart(commonWordsTotal, wordsTotal-commonWordsTotal);
-    wordsTotal = 0;
-    commonWordsTotal = 0;  
+    document.getElementById("commonWords").innerHTML = "Total of simple words: " + commonWordsCounter;
+    document.getElementById("notCommonWords").innerHTML = "Total of not simple words: " + notCommonWordsCounter;
+    document.getElementById("words").innerHTML = "Total of words: " + (commonWordsCounter + notCommonWordsCounter);
+    let percentageCommonWords = (commonWordsCounter/(commonWordsCounter + notCommonWordsCounter))*100;
+    if(percentageCommonWords >= 80)
+        document.getElementById("message").innerHTML = "<span class=\"well-done\">Well done!</span>";
+    else
+        document.getElementById("message").innerHTML = "<span class=\"double-check\">You should double check your message.</span>";
+    document.getElementById("percentage").innerHTML = "The " + percentageCommonWords.toFixed(2) + "% of the words are common.";
+    drawPieChart(commonWordsCounter, notCommonWordsCounter);
+    commonWordsCounter = 0;
+    notCommonWordsCounter = 0;  
 }
 
 function checkAmount(){
@@ -91,19 +100,21 @@ function splitBySimpleSentences(wholeSentence){
 function splitByWords(simpleSentence){
     let words = simpleSentence.split(" ");
     let checkedSimpleSentence = "";
+    let isIn = true;
     if(consoleOn) {console.log("      W:");}
     words.map(w => {
         if(w != ""){
-            let isIn = plainWords.slice(0,amount).includes(w.toLowerCase());
-            wordsTotal += 1;
+            isIn = commonWords.includes(w.toLowerCase());
+            //isIn = lookForWord("1k");
             //TODO: Check if SpanTag can be modified or not because it's const, check if possible to reduce the number of lines
             //TODO: Check the space at the end of a sentence.
             if(!isIn){
                 checkedSimpleSentence += startSpanOutTag + w + endSpanTag + " ";
+                notCommonWordsCounter += 1;
                 if(consoleOn) {console.log("      Out: "+w);}
             } else {
                 //TODO: Check the totals
-                commonWordsTotal += 1;
+                commonWordsCounter += 1;
                 /*if(w.match(new RegExp(/^[A-Z]/)) !== null){
                     if(consoleOn) {console.log(w.match(new RegExp(/^[A-Z]/)) !== null);}
                     checkedSimpleSentence += startSpanProperNounTag + w + endSpanTag + " ";
