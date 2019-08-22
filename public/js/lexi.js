@@ -9,7 +9,29 @@ let isIn = true;
 let whereIs = "";
 let commonWords = [];
 
+/*function testDB(){
+    var mysql      = require('mysql');
+    var connection = mysql.createConnection(
+        {
+        host     : 'localhost:3306',
+        user     : 'sudo',
+        password : 'C3n1t3x2019'
+        }
+    );
+    
+    //connection.query('SELECT 1', function(err, rows) {
+    //    alert('connected!');
+    //});
+    connection.connect(err => {
+        if (err) {
+          console.error('An error occurred while connecting to the DB')
+          throw err
+        }
+      });
+}*/
+
 function checkText(){
+    //testDB();
     //Initialize values
     commonWords = plainWords.slice(0, Array.prototype.slice.call(document.getElementsByName("common")).find((radio) => radio.checked == true).value);
     
