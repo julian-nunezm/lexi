@@ -36,7 +36,7 @@ function checkText(){
     commonWords = plainWords.slice(0, Array.prototype.slice.call(document.getElementsByName("common")).find((radio) => radio.checked == true).value);
     
     //Get the text to analyze
-    let textToCheck = document.getElementById("toTranslate").value;
+    let textToCheck = document.getElementById("textToCheck").value;
     if(consoleOn) {console.clear();}
     if(consoleOn) {console.log(textToCheck);}
     
