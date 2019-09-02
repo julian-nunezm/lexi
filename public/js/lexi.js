@@ -3,11 +3,13 @@ const startParagraphTag = "<p>";
 const endParagraphTag = "</p>";
 let startSpanTag = "";
 const endSpanTag = "</span>";
-let notCommonWordsCounter = 0;
 let commonWordsCounter = 0;
-let isIn = true;
+let cenitexWordsCounter = 0;
+let notCommonWordsCounter = 0;
+let isCommon = true;
+let isCenitex = true;
 let whereIs = "";
-let commonWords = [];
+//let commonWords = [];
 
 /*function testDB(){
     var mysql      = require('mysql');
@@ -46,9 +48,12 @@ function checkText(){
     //Print results
     document.getElementById("checkedMessage").innerHTML = checkedMessage;
     document.getElementById("commonWords").innerHTML = "Total of simple words: " + commonWordsCounter;
+    document.getElementById("cenitexWords").innerHTML = "Total of Cenitex words: " + cenitexWordsCounter;
     document.getElementById("notCommonWords").innerHTML = "Total of not simple words: " + notCommonWordsCounter;
-    document.getElementById("words").innerHTML = "Total of words: " + (commonWordsCounter + notCommonWordsCounter);
-    let percentageCommonWords = (commonWordsCounter/(commonWordsCounter + notCommonWordsCounter))*100;
+    let words = commonWordsCounter + cenitexWordsCounter + notCommonWordsCounter;
+    document.getElementById("words").innerHTML = "Total of words: " + words;
+    //ToDoK: Validate if Cenitex worlds should count on this percentage
+    let percentageCommonWords = (commonWordsCounter/words)*100;
     if(percentageCommonWords >= 80)
         document.getElementById("message").innerHTML = "<span class=\"well-done\">Well done!</span>";
     else
@@ -56,10 +61,11 @@ function checkText(){
     document.getElementById("percentage").innerHTML = "The " + percentageCommonWords.toFixed(2) + "% of the words are common.";
     
     //Draw Pie Chart
-    drawPieChart(commonWordsCounter, notCommonWordsCounter);
+    drawPieChart(commonWordsCounter, cenitexWordsCounter, notCommonWordsCounter);
 
     //Restart counters
     commonWordsCounter = 0;
+    cenitexWordsCounter = 0;
     notCommonWordsCounter = 0;
 }
 
@@ -112,12 +118,20 @@ function splitByWords(simpleSentence){
     if(consoleOn) {console.log("      W:");}
     words.map(w => {
         if(w != ""){
-            isIn = commonWords.includes(w.toLowerCase());
+            isCommon = commonWords.includes(w.toLowerCase());
             whereIs = lookForWord(w);   //2 - 
             //TODO: Check if SpanTag can be modified or not because it's const, check if possible to reduce the number of lines
             //TODO: Check the space at the end of a sentence.
-            if(isIn) commonWordsCounter += 1;
-            else notCommonWordsCounter += 1;   //if(w.match(new RegExp(/^[A-Z]/)) !== null)
+            if(isCommon) commonWordsCounter += 1;
+            else {
+                //if(w.match(new RegExp(/^[A-Z]/)) !== null)
+                isCenitex = cenitex.includes(w.toLowerCase());
+                if(isCenitex) {
+                    cenitexWordsCounter += 1;
+                    whereIs = "cenitex";
+                }
+                else notCommonWordsCounter += 1;
+            }
             startSpanTag = "<span class=\"" + whereIs + "\">";
             checkedSimpleSentence += startSpanTag + w + endSpanTag + " ";    //TODO: Check the space at the end
         }
@@ -140,16 +154,17 @@ function lookForWord(word){ //2 -
     return "out";
 }
 
-function drawPieChart(common, notCommon){
+function drawPieChart(common, cenitex, notCommon){
     google.charts.load('current', {'packages': ['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart(){
         let data = google.visualization.arrayToDataTable([
             ['Words','Amount'],
             ['Common words', common],
+            ['Cenitex words', cenitex],
             ['Not Common words', notCommon]
         ]);
-
+        //ToDo: Change the color of Cenitex Words to orange and notcommon to red in the chart!
         let options = {
             title: 'How accessible your message is...',
             titleTextStyle: {fontSize: 20},
