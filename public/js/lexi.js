@@ -9,31 +9,8 @@ let notCommonWordsCounter = 0;
 let isCommon = true;
 let isCenitex = true;
 let whereIs = "";
-//let commonWords = [];
-
-/*function testDB(){
-    var mysql      = require('mysql');
-    var connection = mysql.createConnection(
-        {
-        host     : 'localhost:3306',
-        user     : 'sudo',
-        password : 'C3n1t3x2019'
-        }
-    );
-    
-    //connection.query('SELECT 1', function(err, rows) {
-    //    alert('connected!');
-    //});
-    connection.connect(err => {
-        if (err) {
-          console.error('An error occurred while connecting to the DB')
-          throw err
-        }
-      });
-}*/
 
 function checkText(){
-    //testDB();
     //Initialize values
     commonWords = plainWords.slice(0, Array.prototype.slice.call(document.getElementsByName("common")).find((radio) => radio.checked == true).value);
     
@@ -46,6 +23,7 @@ function checkText(){
     checkedMessage = splitByParagraphs(textToCheck);
     
     //Print results
+    //ToDo: Try printing the original message looping through the original words to keep any extra character
     document.getElementById("checkedMessage").innerHTML = checkedMessage;
     document.getElementById("commonWords").innerHTML = "Total of simple words: " + commonWordsCounter;
     document.getElementById("cenitexWords").innerHTML = "Total of Cenitex words: " + cenitexWordsCounter;
