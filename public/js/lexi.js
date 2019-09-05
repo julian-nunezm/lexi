@@ -1,3 +1,4 @@
+//ToDo: Comment everything
 const consoleOn = false;
 const startParagraphTag = "<p>";
 const endParagraphTag = "</p>";
@@ -30,7 +31,7 @@ function checkText(){
     document.getElementById("notCommonWords").innerHTML = "Total of not simple words: " + notCommonWordsCounter;
     let words = commonWordsCounter + cenitexWordsCounter + notCommonWordsCounter;
     document.getElementById("words").innerHTML = "Total of words: " + words;
-    //ToDoK: Validate if Cenitex worlds should count on this percentage
+    //ToDo: Validate if Cenitex worlds should count on this percentage
     let percentageCommonWords = (commonWordsCounter/words)*100;
     if(percentageCommonWords >= 80)
         document.getElementById("message").innerHTML = "<span class=\"well-done\">Well done!</span>";
@@ -118,7 +119,7 @@ function splitByWords(simpleSentence){
 }
 
 function lookForWord(word){ //2 - 
-    //TODO: Improve if possible, use the previous slices, in checkText function!!
+    //TODO: Improve if possible, use the previous slices, in checkText function OR get the index and make the validation against the index instead of doing it with more slices.
     let within = plainWords.slice(10000).includes(word.toLowerCase());
     if (within) return "twentyK";
     within = plainWords.slice(5000,10000).includes(word.toLowerCase());
