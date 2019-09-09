@@ -24,7 +24,6 @@ function checkText(){
     checkedMessage = splitByParagraphs(textToCheck);
     
     //Print results
-    //ToDo: Try printing the original message looping through the original words to keep any extra character
     document.getElementById("checkedMessage").innerHTML = checkedMessage;
     document.getElementById("commonWords").innerHTML = "Total of simple words: " + commonWordsCounter;
     document.getElementById("cenitexWords").innerHTML = "Total of Cenitex words: " + cenitexWordsCounter;
@@ -49,13 +48,15 @@ function checkText(){
 }
 
 function splitByParagraphs(text){
-    let paragraphs = text.split(/\n\n/);
+    let paragraphs = text.split(/\n/);
     let checkedMessage = "";
     if(consoleOn) {console.log("P:");}
     paragraphs.map(p => {
-        if(consoleOn) {console.log(p);}
-        checkedParagraph = splitByWholeSentences(p);
-        checkedMessage += startParagraphTag + checkedParagraph + endParagraphTag;
+        if(p != " "){
+            if(consoleOn) {console.log("-" + p);}
+            checkedParagraph = splitByWholeSentences(p);
+            checkedMessage += startParagraphTag + checkedParagraph + endParagraphTag;
+        }
     });
     return checkedMessage;
 }
@@ -65,29 +66,33 @@ function splitByWholeSentences(paragraph){
     let checkedParagraph = "";
     if(consoleOn) {console.log("  WS:");}
     wholeSentences.map(ws => {
-        if(consoleOn) {console.log("  "+ws);}
-        checkedWholeSentence = splitBySimpleSentences(ws);
-        checkedParagraph += checkedWholeSentence + ". ";
+        if(ws != ""){
+            if(consoleOn) {console.log("-->"+ws);}
+            checkedWholeSentence = splitBySimpleSentences(ws);
+            checkedParagraph += checkedWholeSentence + " "; //It already has the full stop.
+        }
     });
-    return checkedParagraph;
+    return checkedParagraph.substr(0, checkedParagraph.length - 1);
 }
 
 function splitBySimpleSentences(wholeSentence){
+    let separator = ", ";
+    let countCommas = 0;
     let simpleSentences = wholeSentence.split(",");
-    console.log(simpleSentences[0]);
-    console.log(typeof simpleSentences[0]);
-    //TODO: Como poner coma al final.
+    let commas = simpleSentences.length-1;
     let checkedWholeSentence = "";
     if(consoleOn) {console.log("    SS:");}
     simpleSentences.map(ss => {
         if(ss != ""){
             ss = ss.trim();
-            console.log("Simple sentence: "+ ss +" - Tipo: "+typeof ss);
-            if(consoleOn) {console.log("    "+ss);}
+            if(consoleOn) {console.log("---->" + ss);}
             checkedSimpleSentence = splitByWords(ss);
-            checkedWholeSentence += checkedSimpleSentence + ", ";
+            if (countCommas >= commas) {separator = ".";}
+            checkedWholeSentence += checkedSimpleSentence.substr(0, checkedSimpleSentence.length - 1) + separator;
+            countCommas += 1;
         }
     });
+    if(consoleOn) {console.log(checkedWholeSentence);}
     return checkedWholeSentence;
 }
 
@@ -98,9 +103,7 @@ function splitByWords(simpleSentence){
     words.map(w => {
         if(w != ""){
             isCommon = commonWords.includes(w.toLowerCase());
-            whereIs = lookForWord(w);   //2 - 
-            //TODO: Check if SpanTag can be modified or not because it's const, check if possible to reduce the number of lines
-            //TODO: Check the space at the end of a sentence.
+            whereIs = lookForWord(w);
             if(isCommon) commonWordsCounter += 1;
             else {
                 //if(w.match(new RegExp(/^[A-Z]/)) !== null)
@@ -111,14 +114,17 @@ function splitByWords(simpleSentence){
                 }
                 else notCommonWordsCounter += 1;
             }
+            if(consoleOn) {console.log("------>" + w + " (" + whereIs + ")");}
             startSpanTag = "<span class=\"" + whereIs + "\">";
-            checkedSimpleSentence += startSpanTag + w + endSpanTag + " ";    //TODO: Check the space at the end
+            checkedSimpleSentence += startSpanTag + w + endSpanTag + " ";
         }
     });
+    checkedSimpleSentence = checkedSimpleSentence.substr(0,checkedSimpleSentence.length - 1) + ".";
+    if(consoleOn) {console.log(checkedSimpleSentence);}
     return checkedSimpleSentence;
 }
 
-function lookForWord(word){ //2 - 
+function lookForWord(word){
     //TODO: Improve if possible, use the previous slices, in checkText function OR get the index and make the validation against the index instead of doing it with more slices.
     let within = plainWords.slice(10000).includes(word.toLowerCase());
     if (within) return "twentyK";
