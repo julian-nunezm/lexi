@@ -104,6 +104,7 @@ function splitByWords(simpleSentence){
         if(w != ""){
             isCommon = commonWords.includes(w.toLowerCase());
             whereIs = lookForWord(w);
+            console.log(w + " (" + whereIs + ")");
             if(isCommon) commonWordsCounter += 1;
             else {
                 //if(w.match(new RegExp(/^[A-Z]/)) !== null)
@@ -114,6 +115,20 @@ function splitByWords(simpleSentence){
                 }
                 else notCommonWordsCounter += 1;
             }
+
+            /*isCenitex = cenitex.includes(w.toLowerCase());
+            if(isCenitex) {
+                cenitexWordsCounter += 1;
+                whereIs = "cenitex";
+            } else {
+                isCommon = commonWords.includes(w.toLowerCase());
+                if(isCommon){
+                    commonWordsCounter += 1;
+                    whereIs = lookForWord(w);
+                    console.log(w + " (" + whereIs + ")");
+                }
+                else notCommonWordsCounter += 1;
+            }*/
             if(consoleOn) {console.log("------>" + w + " (" + whereIs + ")");}
             startSpanTag = "<span class=\"" + whereIs + "\">";
             checkedSimpleSentence += startSpanTag + w + endSpanTag + " ";
