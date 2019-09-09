@@ -61,15 +61,22 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <textarea name="input" id="textToCheck" style="width: 100%; height:250px">Due to an expedited change required for our new Digital Workplace solution you will experience an outage to the following applications if you attempt to login in to the affected applications after 5 pm tonight.
+                  <!--textarea name="input" id="textToCheck" style="width: 100%; height:250px">Due to an expedited change required for our new Digital Workplace solution you will experience an outage to the following applications if you attempt to login in to the affected applications after 5 pm tonight.
  
-All staff who have logged on to their computers in the office before 5 pm today and who do not restart their machine after 5 pm for any reason will continue to be able to work past 5 pm today on the below applications</textarea>
+All staff who have logged on to their computers in the office before 5 pm today and who do not restart their machine after 5 pm for any reason will continue to be able to work past 5 pm today on the below applications</textarea-->
+                  <textarea name="input" id="textToCheck" style="width: 100%; height:250px">Please be advised that disruptions are expected to affect peak-hour traffic and public transport tonight, with a climate change protest planned in the CBD. 
+
+Protestors are expected to meet at the State Library on Swanston Street at 5pm, before separating to a series of locations in the CBD to block foot and road traffic. The protest is expected to finish at 7pm.
+                      
+Victoria Police are aware of the protest and are calling on people to be patient, plan their journey, and allow extra time for their commute where possible. 
+                      
+Please speak to your manager if you think you may be impacted by the protest. </textarea>
                   <div class="col-6">
                     <label id="amounts" class="blackFont">
-                      <input type="radio" name="common" id="1k" value="1000"><label class="oneK span">1k</label>
+                      <input type="radio" name="common" id="1k" value="1000" checked><label class="oneK span">1k</label>
                       <input type="radio" name="common" id="2k" value="2000"><label class="twoK span">2k</label>
                       <input type="radio" name="common" id="5k" value="5000"><label class="fiveK span">5k</label>
-                      <input type="radio" name="common" id="10k" value="10000" checked><label class="tenK span">10k</label>
+                      <input type="radio" name="common" id="10k" value="10000"><label class="tenK span">10k</label>
                       <input type="radio" name="common" id="20k" value="20000" ><label class="twentyK span">20k</label>
                     </label>
                     <button type="submit" onclick="checkText();">Analyze text</button>
