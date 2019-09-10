@@ -182,7 +182,7 @@ function drawPieChart(common, cenitex, notCommon){
             }
         };
 
-        let chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        let chart = new google.visualization.PieChart(document.getElementById('pieChart'));
         chart.draw(data, options);
     }
 }

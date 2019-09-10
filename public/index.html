@@ -60,7 +60,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Text to validate...</h6>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
+                <div class="card-body fixedHeight">
                   <!--textarea name="input" id="textToCheck" style="width: 100%; height:250px">Due to an expedited change required for our new Digital Workplace solution you will experience an outage to the following applications if you attempt to login in to the affected applications after 5 pm tonight.
  
 All staff who have logged on to their computers in the office before 5 pm today and who do not restart their machine after 5 pm for any reason will continue to be able to work past 5 pm today on the below applications</textarea-->
@@ -93,7 +93,7 @@ Please speak to your manager if you think you may be impacted by the protest. </
                   <h6 class="m-0 font-weight-bold text-primary">Results</h6>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
+                <div class="card-body fixedHeight">
                   <p id="commonWords"></p>
                   <p id="cenitexWords"></p>
                   <p id="notCommonWords"></p>
@@ -110,17 +110,14 @@ Please speak to your manager if you think you may be impacted by the protest. </
           <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-6 col-lg-5">
+            <div class="col-xl-6 col-lg-7">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Text Analysis...</h6>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
-                  <div id="checkedMessage" class="result blackFont" style="width: 100%; height:250px">
-                  </div>
-                </div>
+                <div class="card-body fixedHeight result blackFont" id="checkedMessage"></div>
               </div>
             </div>
 
@@ -132,8 +129,7 @@ Please speak to your manager if you think you may be impacted by the protest. </
                   <h6 class="m-0 font-weight-bold text-primary">Percentage Analysis</h6>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body" id="piechart">
-                </div>
+                <div class="card-body fixedHeight" id="pieChart"></div>
               </div>
             </div>
           </div>

@@ -35,10 +35,7 @@ span.out { background-color: red }
 
 span.proper { background-color: yellow }
 
-#piechart {
-    /*width: 100%;*/
-    height: 400px
-}
+.fixedHeight { height: 400px }
 
 .well-done { color: green }
 
