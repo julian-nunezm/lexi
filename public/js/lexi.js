@@ -11,10 +11,11 @@ let isCommon = true;
 let isCenitex = true;
 let whereIs = "";
 
-function checkText(){
+function checkText(limit){
     //Initialize values
-    commonWords = plainWords.slice(0, Array.prototype.slice.call(document.getElementsByName("common")).find((radio) => radio.checked == true).value);
-    
+    //commonWords = plainWords.slice(0, Array.prototype.slice.call(document.getElementsByName("common")).find((radio) => radio.checked == true).value);
+    commonWords = plainWords.slice(0, limit);
+
     //Get the text to analyze
     let textToCheck = document.getElementById("textToCheck").value;
     if(consoleOn) {console.clear();}
@@ -33,9 +34,9 @@ function checkText(){
     //ToDo: Validate if Cenitex worlds should count on this percentage
     let percentageCommonWords = (commonWordsCounter/words)*100;
     if(percentageCommonWords >= 80)
-        document.getElementById("message").innerHTML = "<span class=\"well-done\">Well done!</span>";
+        document.getElementById("message").innerHTML = "<span class=\"alert alert-success\" role=\"alert\">Well done!</span>";
     else
-        document.getElementById("message").innerHTML = "<span class=\"double-check\">You should double check your message.</span>";
+        document.getElementById("message").innerHTML = "<span class=\"alert alert-danger\" role=\"alert\">You should double check your message.</span>";
     document.getElementById("percentage").innerHTML = "The " + percentageCommonWords.toFixed(2) + "% of the words are common.";
     
     //Draw Pie Chart
@@ -130,7 +131,8 @@ function splitByWords(simpleSentence){
                 else notCommonWordsCounter += 1;
             }*/
             if(consoleOn) {console.log("------>" + w + " (" + whereIs + ")");}
-            startSpanTag = "<span class=\"" + whereIs + "\">";
+            whereIs = "";
+            startSpanTag = "<span class=\"badge warning " + whereIs + "\">";
             checkedSimpleSentence += startSpanTag + w + endSpanTag + " ";
         }
     });

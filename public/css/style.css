@@ -1,0 +1,48 @@
+/*body {
+    background: #013c0b;
+}*/
+
+div {
+    /*background: #9a9a9a1a;
+    border: 1px solid;*/
+    margin-top: 10px;
+}
+
+/*.container{
+    margin-top: 10px;
+}*/
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 60px;
+    text-align: center;
+    /*color: white;*/
+}
+
+.section {
+    height: 25rem;
+    /*background: #5cbfa2;*/
+    margin: 10px 5px 0px 5px;
+}
+
+.section-title {
+    height: 20%;
+    margin-top: 5%;
+    text-align: center;
+    padding: 20px;
+}
+
+.section-description {
+    height: 70%;
+    margin-bottom: 5%;
+}
+
+textarea.form-control {
+    margin-top: 5px;
+}
+
+.btn:focus {
+    background: greenyellow;
+    /*box-shadow: 0 2px gray;*/
+    transform: translateY(5px);
+}
