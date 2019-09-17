@@ -131,8 +131,7 @@ function splitByWords(simpleSentence){
                 else notCommonWordsCounter += 1;
             }*/
             if(consoleOn) {console.log("------>" + w + " (" + whereIs + ")");}
-            whereIs = "";
-            startSpanTag = "<span class=\"badge warning " + whereIs + "\">";
+            startSpanTag = "<span class=\"badge " + whereIs + "\">";
             checkedSimpleSentence += startSpanTag + w + endSpanTag + " ";
         }
     });

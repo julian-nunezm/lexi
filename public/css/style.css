@@ -46,3 +46,21 @@ textarea.form-control {
     /*box-shadow: 0 2px gray;*/
     transform: translateY(5px);
 }
+
+.badge {
+    font-weight: normal;
+}
+
+span.out { background-color: red }
+
+.cenitex { background-color: orange }
+
+.oneK { background-color: greenyellow }
+
+.twoK { background-color: cadetblue }
+
+.fiveK { background-color: burlywood }
+
+.tenK { background-color: cyan }
+
+.twentyK { background-color: darkmagenta }
