@@ -47,11 +47,15 @@ textarea.form-control {
     transform: translateY(5px);
 }
 
+.alert {
+    text-align: left;
+}
+
 .badge {
     font-weight: normal;
 }
 
-span.out { background-color: red }
+.out { background-color: red }
 
 .cenitex { background-color: orange }
 
